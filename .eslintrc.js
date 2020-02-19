@@ -9,6 +9,7 @@ module.exports = {
     'parser': '@typescript-eslint/parser',
     'parserOptions': {
         'project': path.resolve(__dirname, "./tsconfig.json"),
+        'createDefaultProgram': true,
         'sourceType': 'module',
     },
     extends: [
@@ -52,7 +53,7 @@ module.exports = {
                 },
             },
         ],
-        'simple-import-sort/sort': 'error',
+        'simple-import-sort/sort': 'off',
         '@typescript-eslint/member-ordering': 'off',
         '@typescript-eslint/no-angle-bracket-type-assertion': 'off',
         '@typescript-eslint/no-empty-function': 'error',

@@ -3,22 +3,22 @@ services:
   app:
     env_file:
       - .development.env
-    container_name: awesome_nest_boilerplate
+    container_name: nest_api
     restart: always
     build: .
     ports:
       - "$PORT:$PORT"
     links:
       - postgres
-  postgres:
-    image: postgres
+  mysql:
+    image: mysql
     restart: always
     environment:
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: root
     ports:
-      - "5433:5432"
+      - "3306:3306"
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - ./db-data:/var/lib/mysql/data
   adminer:
     image: adminer
     restart: always
