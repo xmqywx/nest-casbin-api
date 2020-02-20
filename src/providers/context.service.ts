@@ -1,5 +1,5 @@
 import * as requestContext from 'request-context';
-
+// Simple connect middleware for accessing data in a request context.
 export class ContextService {
     private static readonly _nameSpace = 'request';
 

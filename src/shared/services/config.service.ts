@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { ConnectionOptions } from 'typeorm';
 import * as dotenv from 'dotenv';
 
 import { IAwsConfig } from '../../interfaces/IAwsConfig';
@@ -29,6 +30,17 @@ export class ConfigService {
 
     get nodeEnv(): string {
         return this.get('NODE_ENV') || 'development';
+    }
+
+    get typeOrmAdp(): ConnectionOptions {
+        return {
+            type: 'mysql',
+            host: this.get('POSTGRES_HOST'),
+            port: this.getNumber('POSTGRES_PORT'),
+            username: this.get('POSTGRES_USERNAME'),
+            password: this.get('POSTGRES_PASSWORD'),
+            database: this.get('POSTGRES_DATABASE'),
+        };
     }
 
     get typeOrmConfig(): TypeOrmModuleOptions {

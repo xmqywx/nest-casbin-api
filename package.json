@@ -39,6 +39,7 @@
         "@nestjs/typeorm": "^6.2.0",
         "aws-sdk": "~2.549.0",
         "bcrypt": "~3.0.6",
+        "casbin": "^4.1.0",
         "class-transformer": "^0.2.3",
         "class-validator": "^0.10.2",
         "compression": "~1.7.4",
@@ -61,6 +62,7 @@
         "source-map-support": "^0.5.13",
         "swagger-ui-express": "^4.1.2",
         "typeorm": "^0.2.19",
+        "typeorm-adapter": "^1.0.4",
         "typeorm-transactional-cls-hooked": "^0.1.8",
         "typescript": "^3.6.4",
         "uuid": "^3.3.3"

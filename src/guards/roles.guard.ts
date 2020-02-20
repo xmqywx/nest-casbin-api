@@ -1,24 +1,35 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+    CanActivate,
+    ExecutionContext,
+    Injectable,
+    Inject,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { Enforcer } from 'casbin';
 import { UserEntity } from '../modules/user/user.entity';
-
 @Injectable()
 export class RolesGuard implements CanActivate {
-    constructor(private readonly _reflector: Reflector) {}
+    constructor(
+        private readonly _reflector: Reflector,
+        @Inject('CASBIN_ENFORCER') private readonly _enforcer: Enforcer,
+    ) {}
 
-    canActivate(context: ExecutionContext): boolean {
-        const roles = this._reflector.get<string[]>(
-            'roles',
-            context.getHandler(),
-        );
-
-        if (!roles) {
-            return true;
-        }
-
+    async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();
+        let isAuth = false;
         const user = <UserEntity>request.user;
-
-        return roles.includes(user.role);
+        await this._enforcer.addPolicy(
+            user.id,
+            'domain',
+            request.path,
+            request.method,
+        );
+        isAuth = await this._enforcer.enforce(
+            user.id,
+            'domain',
+            request.path,
+            request.method,
+        );
+        return isAuth;
     }
 }
