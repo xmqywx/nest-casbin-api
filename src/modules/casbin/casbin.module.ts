@@ -2,7 +2,7 @@ import { DynamicModule, Module, Provider, Global } from '@nestjs/common';
 import { Adapter, newEnforcer } from 'casbin';
 import TypeORMAdapter from 'typeorm-adapter';
 import { CasbinService } from './casbin.service';
-const CASBIN_ENFORCER = 'CASBIN_ENFORCER';
+import { CASBIN_ENFORCER } from './casbin.constants';
 @Global()
 @Module({})
 export class CasbinModule {

@@ -1,7 +1,12 @@
+import { Inject, Injectable } from '@nestjs/common';
 import { Enforcer } from 'casbin';
+import { CASBIN_ENFORCER } from './casbin.constants';
 
+Injectable();
 export class CasbinService {
-    constructor(private readonly _enforcer: Enforcer) {}
+    constructor(
+        @Inject(CASBIN_ENFORCER) private readonly _enforcer: Enforcer,
+    ) {}
 
     public async reloadPolicy() {
         await this._enforcer.loadPolicy();
@@ -22,6 +27,6 @@ export class CasbinService {
     }
 
     public async checkPermission(...params: any[]) {
-        return this._enforcer.enforce(params);
+        return this._enforcer.enforce(...params);
     }
 }
